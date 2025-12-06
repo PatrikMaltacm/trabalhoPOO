@@ -7,7 +7,7 @@ public class Euro extends Moeda  {
 	}
 	
 	public void info() {
-		System.out.println("Valor Euro: " + valor);
+		System.out.println("Valor em Euro: " + valor);
 	}
 	
 	public double converter() {

@@ -4,14 +4,65 @@ import java.util.ArrayList;
 
 
 public class Cofrinho {
-	ArrayList<Moeda> listaMoeda;
+	ArrayList<Moeda> listaMoeda = new ArrayList<>();
 	
-	public void adicionar(Moeda moeda) {
-		listaMoeda.add(moeda);
+	public double saldoPorMoeda(Class<? extends Moeda> tipoMoeda) {
+		double total = 0;
+		
+		for (int i = 0; i < listaMoeda.size(); i++) {
+		    Moeda m = listaMoeda.get(i);
+		    total += m.valor;
+		};
+		
+		return total;
 	}
+
+
+	public void adicionar(Moeda moeda) {
+
+	    for (int i = 0; i < listaMoeda.size(); i++) {
+	        Moeda m = listaMoeda.get(i);
+
+	        // Verifica se é o mesmo tipo da moeda informada
+	        if (m.getClass() == moeda.getClass()) {
+
+	            // Soma o valor
+	            m.valor += moeda.valor;
+
+	            return; // pronto, adicionou
+	        }
+	    }
+
+	    // Se não achou nenhuma do mesmo tipo, adiciona nova
+	    listaMoeda.add(moeda);
+	}
+
 	
 	public void remover(Moeda moeda) {
-		listaMoeda.add(moeda);
+
+	    for (int i = 0; i < listaMoeda.size(); i++) {
+
+	        Moeda m = listaMoeda.get(i);
+
+	        // Verifica se é o mesmo tipo da moeda informada
+	        if (m.getClass() == moeda.getClass()) {
+
+	            // Se a moeda dentro do cofre tem valor suficiente
+	            if (m.valor >= moeda.valor) {
+
+	                m.valor -= moeda.valor;  // subtrai o valor solicitado
+
+	                // Se o valor ficar zero, remove o objeto da lista
+	                if (m.valor == 0) {
+	                    listaMoeda.remove(i);
+	                }
+
+	                return;
+	            }
+	        }
+	    }
+
+	    System.out.println("Não foi possível remover: valor insuficiente ou moeda inexistente.");
 	}
 	
 	public void listarMoedas() {
